@@ -100,6 +100,8 @@ vim.g.have_nerd_font = true
 
 -- Make line numbers default
 vim.opt.number = true
+vim.opt.relativenumber = true
+
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 -- vim.opt.relativenumber = true
@@ -125,7 +127,7 @@ vim.opt.breakindent = true
 vim.opt.undofile = true
 
 -- Setting Gruvbox
-vim.o.background = "dark"
+vim.o.background = 'dark'
 -- vim.cmd("colorscheme gruvbox")
 -- Adding folding (folding functions or anything with braces/indent)
 --
