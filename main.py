@@ -65,4 +65,19 @@ def CopyLocaltoSystem():
     Copy("local", "system", dirs_list)
 
 
-CopySystemToLocal()
+# ask user if they want to merge local to system or vice vers
+def getUserInput():
+    print("Press 1 or 2 from below:")
+    print("1. Copy local copy to system")
+    print("2. Copy system copy to local")
+    userInput = input("$ ")
+
+    if int(userInput) == 1:
+        CopyLocaltoSystem()
+    elif int(userInput) == 2:
+        CopySystemToLocal()
+    else:
+        print("Please enter either 1 or 2")
+
+
+getUserInput()
