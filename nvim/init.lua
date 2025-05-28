@@ -176,6 +176,8 @@ vim.opt.confirm = true
 if vim.lsp.inlay_hint then
   vim.lsp.inlay_hint.enable(true, { 0 })
 end
+-- Sets Code Actions (Like filling in match statements in Rust, works with other langs as well)
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'LSP Code Action' })
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -733,6 +735,10 @@ require('lazy').setup({
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
         handlers = {
+          -- Overriding mason's rust-analyzer to run rustaceannvim as both don't play well together
+          -- in the future maybe don't need rustacenvim and can use normal rust analyzer with mason
+          -- given now that code actions are enabled above, but yh
+          rust_analyzer = function() end,
           function(server_name)
             local server = servers[server_name] or {}
             -- This handles overriding only values explicitly passed
