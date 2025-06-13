@@ -18,6 +18,10 @@ dirs_list = {
         "local": "./nvim/",
         "system": configDir() + "/nvim/"
     },
+    "zellij": {
+        "local": "./tmux/.tmux.conf",
+        "system": str(Path("~/.tmux.conf").expanduser())
+    },
     "tmux": {
         "local": "./tmux/.tmux.conf",
         "system": str(Path("~/.tmux.conf").expanduser())
