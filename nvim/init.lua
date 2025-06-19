@@ -232,6 +232,23 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Zellij and Neovim panes integration
+-- local function map_key(key, direction, zellij_key)
+--   vim.keymap.set('n', key, function()
+--     local cur_win = vim.api.nvim_get_current_win()
+--     vim.cmd('wincmd ' .. direction)
+--     if vim.api.nvim_get_current_win() == cur_win then
+--       -- fallback to Zellij navigation
+--       vim.fn.jobstart({ 'zellij', 'action', 'move-focus', zellij_key }, { detach = true })
+--     end
+--   end, { noremap = true, silent = true })
+-- end
+--
+-- map_key('<C-h>', 'h', 'left')
+-- map_key('<C-j>', 'j', 'down')
+-- map_key('<C-k>', 'k', 'up')
+-- map_key('<C-l>', 'l', 'right')
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
