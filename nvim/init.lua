@@ -127,8 +127,9 @@ vim.opt.breakindent = true
 vim.opt.undofile = true
 
 -- Setting Gruvbox
-vim.o.background = 'dark'
--- vim.cmd("colorscheme gruvbox")
+-- vim.o.background = 'dark'
+-- vim.cmd 'colorscheme gruvbox'
+-- vim.cmd [[colorscheme gruvbox]]
 -- Adding folding (folding functions or anything with braces/indent)
 --
 -- vim.opt.foldmethod = 'expr'
