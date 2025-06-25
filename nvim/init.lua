@@ -180,6 +180,14 @@ end
 -- Sets Code Actions (Like filling in match statements in Rust, works with other langs as well)
 vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'LSP Code Action' })
 
+-- Set up keymap for typst preview
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'typst',
+  callback = function()
+    vim.keymap.set('n', '<leader>tp', '<cmd>TypstPreviewToggle<CR>', { buffer = true, desc = 'Toggle Typst Preview' })
+  end,
+})
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
