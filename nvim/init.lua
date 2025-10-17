@@ -230,6 +230,12 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
+-- Tab and indentation settings
+vim.opt.tabstop = 4 -- Display width of a tab character
+vim.opt.shiftwidth = 4 -- Number of spaces per indent
+vim.opt.softtabstop = 4 -- Spaces inserted when pressing Tab
+vim.opt.expandtab = true -- Convert tabs to spaces
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
