@@ -28,8 +28,13 @@
         ({ pkgs, ... }: {
           environment.systemPackages = with pkgs; [
             fish
+            rofi
             htop
             unzip
+            kdePackages.dolphin
+            kdePackages.kio-fuse #to mount remote filesystems via FUSE
+            kdePackages.kio-extras
+            kdePackages.qtsvg
             git
             btop
             jujutsu
@@ -48,6 +53,8 @@
           fonts = {
             enableDefaultFonts = true;
             packages = with pkgs; [
+              nerd-fonts.jetbrains-mono
+              jetbrains-mono
               noto-fonts
               noto-fonts-cjk-sans
               noto-fonts-color-emoji
@@ -57,7 +64,6 @@
               mplus-outline-fonts.githubRelease
               dina-font
               proggyfonts
-              jetbrains-mono
             ];
           };
         })

@@ -20,8 +20,6 @@
 
   # Enable uinput
   hardware.uinput.enable = true;
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable; # Default
-
 
   # Set up udev rules for uinput
   services.udev.extraRules = ''
@@ -69,12 +67,24 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # gpu drivers (closed source nvidia)
+  hardware.graphics = {
+    enable = true;
+  };
+
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = false;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # package = config.boot.kernelPackages.nvidiaPackages.latest;
+  };
+  # gpu drivers (closed source nvidia)
+
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -126,8 +136,12 @@
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
+  # install hyprland
+  programs.hyprland.enable = true;
+  programs.waybar.enable = true;
   
   services.flatpak.enable = true;
+
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -149,18 +163,25 @@
     VISUAL = "nvim";
   };
 
+  services.tailscale.enable = true;
+  services.tailscale.useRoutingFeatures = "both";
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
-	ghostty
-	neovim
-	gh
-	zellij
-	kanata
-	git
+    tailscale
+    wget
+    ghostty
+    hyprlock
+    neovim
+    hyprpaper
+    gh
+    zellij
+    kanata
+    git
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

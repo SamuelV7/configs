@@ -69,7 +69,14 @@ def CopyLocaltoSystem():
     Copy("local", "system", dirs_list)
 
 
+nix_os = {
+    "local": "./nixos/",
+    "system": "/etc/nixos/"
+}
+
 # ask user if they want to merge local to system or vice vers
+
+
 def getUserInput():
     print("Press 1 or 2 from below:")
     print("1. Copy local copy to system")
