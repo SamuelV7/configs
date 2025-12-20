@@ -468,3 +468,10 @@ show_startup_tips false
 // Default: true
 // 
 // show_release_notes false
+
+// web_server true
+// web_server_ip "0.0.0.0"
+// web_server_port 7000
+// web_server_cert "/home/sam/zellij_cert/localhost+2.pem"
+// web_server_key "/home/sam/zellij_cert/localhost+2-key.pem"
+// enforce_https_on_localhost true // whether to enforce an https certificate being present also when listening on localhost (default: false)
