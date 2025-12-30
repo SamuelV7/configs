@@ -28,18 +28,14 @@
 # }
 { config, pkgs, ... }:
 {
-  services.caddy.virtualHosts."home".extraConfig = ''
-    reverse_proxy localhost:3000
-  '';
-
   services.forgejo = {
     enable = true;
     database.type = "postgres";
     lfs.enable = true;
     settings = {
       server = {
-        DOMAIN = "bethel";
-        ROOT_URL = "https://bethel/";
+        DOMAIN = "git.bethel.home";
+        ROOT_URL = "https://git.bethel.home/";
         HTTP_PORT = 3000;
       };
       service.DISABLE_REGISTRATION = false;

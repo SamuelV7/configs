@@ -90,7 +90,10 @@
           ./modules/jellyfn.nix
           # ./modules/n8n.nix
           ./modules/forgejo.nix
-          ./modules/nextcloud.nix
+          # ./modules/nextcloud.nix
+          ./modules/immich.nix
+          #note this contains caddy and pihole
+          ./modules/caddy.nix
 
 
           ({ pkgs, ... }: {
