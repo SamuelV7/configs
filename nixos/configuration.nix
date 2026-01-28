@@ -142,6 +142,8 @@
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
+
+  programs.nix-ld.enable = true;
   # install hyprland
   programs.hyprland.enable = true;
   programs.waybar.enable = true;

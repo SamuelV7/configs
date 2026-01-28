@@ -5,22 +5,19 @@
     # NixOS official package source
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    opencode.url = "github:anomalyco/opencode";
   };
 
   # outputs = { self, nixpkgs, zen-browser, ... }: let 
-  outputs = { self, nixpkgs, ... }: let 
+  outputs = { self, nixpkgs, opencode, ... }@inputs: let 
     system = "x86_64-linux";
-    # pkgs = import nixpkgs {
-    #   system = system;
-    #   overlays = [ zen-browser.overlays.default ]; # Ensure this is correct
-    # };
   in {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         # Make this configurable for different architectures
         inherit system;
         # specialArgs = { inherit zen-browser; };
+        specialArgs = { inherit inputs; };
 
         modules = [
           ./hosts/desktop/configuration.nix
@@ -28,18 +25,22 @@
           ./modules/discord.nix
           ./modules/vscodium.nix
           ./modules/browsers.nix
-          # ./modules/jellyfn.nix
-          # ./modules/n8n.nix
+          ./modules/opencode.nix
 
           ({ pkgs, ... }: {
             environment.systemPackages = with pkgs; [
               fish
               rofi
               mkcert
+              zapzap
               ripgrep
               htop
               uv
+              claude-code
               unzip
+              logseq
+              cryptomator
+              veracrypt
               # needs this for wake on lan duh
               wakeonlan
               ncdu
