@@ -27,8 +27,10 @@ in
   services.dnsmasq = {
     enable = true;
     settings = {
-      address = "/bethel.home/${bethelIP}";
-      address = "/ytd.bethel.home/${bethelIP}";
+      address = [
+        "/bethel.home/${bethelIP}"
+        "/ytd.bethel.home/${bethelIP}"
+      ];
       server = [ "127.0.0.1#5353" ];  # Forward to Pi-hole
     };
   };
