@@ -28,6 +28,7 @@ in
     enable = true;
     settings = {
       address = "/bethel.home/${bethelIP}";
+      address = "/ytd.bethel.home/${bethelIP}";
       server = [ "127.0.0.1#5353" ];  # Forward to Pi-hole
     };
   };
@@ -53,6 +54,10 @@ in
       "pihole.bethel.home".extraConfig = ''
         tls internal
         reverse_proxy localhost:8053
+      '';
+      "ytd.bethel.home".extraConfig = ''
+        tls internal
+        reverse_proxy localhost:8000
       '';
     };
   };

@@ -15,6 +15,7 @@
     git
     btop
     jujutsu
+    just
     gh
     python314
     ghostty

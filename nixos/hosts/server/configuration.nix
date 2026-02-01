@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -32,6 +32,7 @@
     };
     firewall = {
       allowedUDPPorts = [ 9 ];
+      allowedTCPPorts = [ 8000 ];
     };
   };
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -86,6 +87,8 @@
   };
   users.users.sam.shell = pkgs.fish;
 
+  virtualisation.podman.enable = true;
+
   nix.settings.trusted-users = [ "root" "sam" ];
 
   # List packages installed in system profile. To search, run:
@@ -125,5 +128,15 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
+
+  services.ytdlp-ui = {
+    enable = true;
+    package = inputs.ytdlp-ui;
+    port = 8000;
+    dataDir = "/var/lib/ytdlp-ui";
+    modelSize = "medium";
+    enablePotProvider = true;
+    potProviderPort = 4416;
+  };
 
 }
