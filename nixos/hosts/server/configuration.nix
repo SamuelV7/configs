@@ -81,30 +81,18 @@
   # Enable automatic login for the user.
   services.getty.autologinUser = "sam";
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-
   programs.fish = {
     enable = true;
   };
   users.users.sam.shell = pkgs.fish;
 
-
-  environment.variables = {
-        EDITOR = "nvim";
-        VISUAL = "nvim";
-  };
   nix.settings.trusted-users = [ "root" "sam" ];
-
-  services.tailscale.enable = true;
-  services.tailscale.useRoutingFeatures = "both";
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-        tailscale
         wget
+        ethtool
         python314
         git
         neovim
