@@ -112,11 +112,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1769912310,
-        "narHash": "sha256-ABCXAWUR5wwkWBqua3rHagugF0DbfCDZjoaUgKVh6MQ=",
+        "lastModified": 1769912466,
+        "narHash": "sha256-CKxjctZE0RBGG60B4xF+Rd4oLDaxPbkv/3AxxvjBYp0=",
         "ref": "refs/heads/master",
-        "rev": "c1d24c700ed6fd0e40c1f95f6766141a4fd01c69",
-        "revCount": 9,
+        "rev": "c1e9ee4a271aca745b0d8d92a9f38a8fd76a255d",
+        "revCount": 10,
         "type": "git",
         "url": "ssh://forgejo@git.bethel.home:2222/sam07/ytdlp_ui.git"
       },
