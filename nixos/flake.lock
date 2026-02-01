@@ -118,11 +118,11 @@
         "rev": "c1e9ee4a271aca745b0d8d92a9f38a8fd76a255d",
         "revCount": 10,
         "type": "git",
-        "url": "ssh://forgejo@git.bethel.home:2222/sam07/ytdlp_ui.git"
+        "url": "https://git.bethel.home/sam07/ytdlp_ui.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://forgejo@git.bethel.home:2222/sam07/ytdlp_ui.git"
+        "url": "git+https://git.bethel.home/sam07/ytdlp_ui.git"
       }
     }
   },

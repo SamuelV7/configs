@@ -6,7 +6,7 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     opencode.url = "github:anomalyco/opencode";
-    ytdlp-ui.url = "git+ssh://forgejo@git.bethel.home:2222/sam07/ytdlp_ui.git";
+    ytdlp-ui.url = "git+https://git.bethel.home/sam07/ytdlp_ui.git";
   };
 
   # outputs = { self, nixpkgs, zen-browser, ... }: let 
