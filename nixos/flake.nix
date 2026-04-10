@@ -6,7 +6,7 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     opencode.url = "github:anomalyco/opencode";
-    ytdlp-ui.url = "git+ssh://forgejo@git.bethel.home:2222/sam07/ytdlp_ui.git";
+    # ytdlp-ui.url = "git+ssh://forgejo@git.bethel.home:2222/sam07/ytdlp_ui.git";
   };
 
   # outputs = { self, nixpkgs, zen-browser, ... }: let 
@@ -24,6 +24,7 @@
           ./hosts/desktop/configuration.nix
           ./modules/common.nix
           ./modules/steam.nix
+          ./modules/sound.nix
           ./modules/discord.nix
           ./modules/vscodium.nix
           ./modules/browsers.nix
@@ -44,7 +45,7 @@
           ./modules/immich.nix
           #note this contains caddy and pihole
           ./modules/caddy.nix
-          inputs.ytdlp-ui.nixosModules.default
+          # inputs.ytdlp-ui.nixosModules.default
         ];
       };
 

@@ -128,7 +128,7 @@
   users.users.sam = {
     isNormalUser = true;
     description = "sam";
-    extraGroups = [ "networkmanager" "wheel" "input" "uinput" ];
+    extraGroups = [ "networkmanager" "wheel" "input" "uinput" "docker"];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -142,6 +142,8 @@
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
+
+  programs.nix-ld.enable = true;
   # install hyprland
   programs.hyprland.enable = true;
   programs.waybar.enable = true;
@@ -159,11 +161,26 @@
   };
   users.users.sam.shell = pkgs.fish;
 
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+  
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  environment.variables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+
+  services.tailscale.enable = true;
+  services.tailscale.useRoutingFeatures = "both";
+
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
+    tailscale
     wget
     ghostty
     hyprlock
@@ -173,8 +190,6 @@
     zellij
     kanata
     git
-    tea
-    lutris
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
