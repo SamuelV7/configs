@@ -29,6 +29,12 @@
           ./modules/vscodium.nix
           ./modules/browsers.nix
           ./modules/opencode.nix
+          # ./modules/opencode.nix
+          ./modules/libation.nix
+          ./modules/pi.nix
+          ./modules/bottles.nix
+          # ./modules/opencode.nix
+          ./modules/libation.nix
         ];
       };
       server =  nixpkgs.lib.nixosSystem {

@@ -84,6 +84,15 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+function Map(mode, lhs, rhs, opts)
+  local options = { noremap = true, silent = true }
+  if opts then
+    options = vim.tbl_extend('force', options, opts)
+  end
+  vim.keymap.set(mode, lhs, rhs, options)
+end
+
+vim.g.mapleader = ' '
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -198,6 +207,17 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
+Map('n', '<C-w>f', '<cmd>vs | term <CR>')
+-- vim.keymap.set('n', '<leader>p', '<Cmd>vs | term <CR>', { noremap = true, silent = true })
+Map('t', '<C-h>', '<cmd>wincmd h<CR>')
+Map('t', '<C-j>', '<cmd>wincmd j<CR>')
+Map('t', '<C-k>', '<cmd>wincmd k<CR>')
+Map('t', '<C-l>', '<cmd>wincmd l<CR>')
+-- Resize terminal
+Map('t', '<C-Up>', '<cmd>resize -2<CR>')
+Map('t', '<C-Down>', '<cmd>resize +2<CR>')
+Map('t', '<C-Left>', '<cmd>vertical resize -2<CR>')
+Map('t', '<C-Right>', '<cmd>vertical resize +2<CR>')
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -235,6 +255,40 @@ vim.opt.tabstop = 4 -- Display width of a tab character
 vim.opt.shiftwidth = 4 -- Number of spaces per indent
 vim.opt.softtabstop = 4 -- Spaces inserted when pressing Tab
 vim.opt.expandtab = true -- Convert tabs to spaces
+
+-- ~/.config/nvim/init.lua
+vim.filetype.add {
+  extension = {
+    qnt = 'quint',
+  },
+}
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'quint',
+  callback = function(args)
+    vim.lsp.start {
+      name = 'quint',
+      cmd = { 'quint-language-server', '--stdio' },
+      root_dir = vim.fs.root(args.buf, { '.git', 'quint.json' }) or vim.fn.getcwd(),
+    }
+  end,
+})
+-- Quint filetype
+-- vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+--   pattern = '*.qnt',
+--   command = 'setfiletype quint',
+-- })
+--
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'quint',
+--   callback = function()
+--     vim.lsp.start {
+--       name = 'quint',
+--       cmd = { 'quint-language-server', '--stdio' },
+--       root_dir = vim.fs.dirname(vim.api.nvim_buf_get_name(0)),
+--     }
+--   end,
+-- })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -579,6 +633,9 @@ require('lazy').setup({
             mode = mode or 'n'
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
+
+          -- Hover documentation for the symbol under your cursor.
+          map('K', vim.lsp.buf.hover, 'Hover Documentation')
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.

@@ -1,0 +1,29 @@
+return {
+  -- {
+  --   'neovim/nvim-lspconfig',
+  --   config = function()
+  --     vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  --       pattern = '*.qnt',
+  --       command = 'setfiletype quint',
+  --     })
+  --
+  --     local lspconfig = require 'lspconfig'
+  --     local configs = require 'lspconfig.configs'
+  --
+  --     if not configs.quint then
+  --       configs.quint = {
+  --         default_config = {
+  --           name = 'quint',
+  --           cmd = { 'quint-language-server', '--stdio' },
+  --           filetypes = { 'quint' },
+  --           root_dir = function(fname)
+  --             return vim.fs.root(fname, { '.git', 'quint.json', 'package.json' }) or vim.fs.dirname(fname)
+  --           end,
+  --         },
+  --       }
+  --     end
+  --
+  --     lspconfig.quint.setup {}
+  --   end,
+  -- },
+}
