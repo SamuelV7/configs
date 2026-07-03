@@ -114,6 +114,16 @@
     ];
   };
 
+  # Old working autologin path: use the normal NixOS display manager
+  # autologin, not greetd/tuigreet.
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "sam";
+  services.displayManager.defaultSession = "hyprland";
+
+  # Keep tty1 free for the display manager/autologin session.
+  systemd.services."getty@tty1".enable = false;
+  systemd.services."autovt@tty1".enable = false;
+
   services.flatpak.enable = true;
 
 
