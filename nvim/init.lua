@@ -787,6 +787,7 @@ require('lazy').setup({
         -- But for many setups, the LSP (`ts_ls`) will work just fine
         -- ts_ls = {},
         --
+        vtsls = {},
 
         lua_ls = {
           -- cmd = { ... },
@@ -825,23 +826,16 @@ require('lazy').setup({
 
       require('mason-lspconfig').setup {
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-        automatic_installation = false,
         automatic_enable = false,
-        handlers = {
-          -- Overriding mason's rust-analyzer to run rustaceannvim as both don't play well together
-          -- in the future maybe don't need rustacenvim and can use normal rust analyzer with mason
-          -- given now that code actions are enabled above, but yh
-          rust_analyzer = function() end,
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
       }
+
+      for server_name, server in pairs(servers) do
+        -- This handles overriding only values explicitly passed in the server
+        -- configuration above. Useful when disabling certain features of an LSP.
+        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+        vim.lsp.config(server_name, server)
+        vim.lsp.enable(server_name)
+      end
     end,
   },
 

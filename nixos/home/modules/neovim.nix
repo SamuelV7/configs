@@ -16,6 +16,7 @@
     gcc
     gnumake
     lua-language-server
+    vtsls
     stylua
     nil
     nixfmt
