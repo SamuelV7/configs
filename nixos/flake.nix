@@ -35,6 +35,7 @@
           ./modules/vscodium.nix
           ./modules/browsers.nix
           ./modules/opencode.nix
+          ./modules/pi.nix
           ./modules/bottles.nix
           # ./modules/opencode.nix
           ./modules/libation.nix

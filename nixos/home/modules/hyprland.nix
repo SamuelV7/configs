@@ -1,10 +1,10 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home.packages = with pkgs; [
     hyprlock
     hyprpaper
-    waybar
+    kdePackages.dolphin
     rofi
     wofi
     wl-clipboard
@@ -12,43 +12,20 @@
     slurp
     playerctl
     wlogout
+    brightnessctl
     curl
   ];
 
-  xdg.configFile."hypr/hyprland.conf" = {
-    source = ../config/hypr/hyprland.conf;
+  # Keep Hyprland itself/session startup in the NixOS module.
+  # Home Manager should only restore the old repo-backed dotfile links;
+  # do not render ~/.config/hypr/hyprland.conf from HM.
+  xdg.configFile."hypr" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/ForgeLab/configs/hypr";
     force = true;
   };
 
-  xdg.configFile."hypr/hyprpaper.conf" = {
-    source = ../config/hypr/hyprpaper.conf;
-    force = true;
-  };
-
-  xdg.configFile."hypr/hyprlock.conf" = {
-    source = ../config/hypr/hyprlock.conf;
-    force = true;
-  };
-
-  xdg.configFile."waybar/config.jsonc" = {
-    source = ../config/waybar/config.jsonc;
-    force = true;
-  };
-
-  xdg.configFile."waybar/style.css" = {
-    source = ../config/waybar/style.css;
-    force = true;
-  };
-
-  xdg.configFile."waybar/scripts/weather-stats" = {
-    source = ../config/waybar/scripts/weather-stats;
-    executable = true;
-    force = true;
-  };
-
-  xdg.configFile."waybar/scripts/docker-stats" = {
-    source = ../config/waybar/scripts/docker-stats;
-    executable = true;
+  xdg.configFile."waybar" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/ForgeLab/configs/waybar";
     force = true;
   };
 }
