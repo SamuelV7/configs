@@ -1,7 +1,15 @@
 { config, lib, pkgs, ... }:
 
 {
+  xdg.configFile."nvim" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/ForgeLab/configs/nvim";
+    force = true;
+  };
+
   home.packages = with pkgs; [
+    # Keep this as plain Neovim. Using `neovim.override { configure = ...; }`
+    # creates a wrapper that exports VIMINIT, and VIMINIT makes Neovim skip
+    # ~/.config/nvim/init.lua entirely.
     neovim
     ripgrep
     fd
@@ -12,9 +20,4 @@
     nil
     nixfmt
   ];
-
-  home.activation.linkNeovimConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    rm -rf "${config.xdg.configHome}/nvim"
-    ln -sfn "/home/sam/ForgeLab/configs-w1-alchemy/nvim" "${config.xdg.configHome}/nvim"
-  '';
 }

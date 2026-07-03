@@ -4,6 +4,7 @@
   imports = [
     ./modules/hyprland.nix
     ./modules/neovim.nix
+    ./modules/pi.nix
     ./modules/rust.nix
   ];
 
