@@ -22,16 +22,21 @@
     ];
   };
 
-  # TODO: add your actual Kanata keyboard config here, then it will autostart as a system service.
-  # Example shape:
-  # services.kanata = {
-  #   enable = true;
-  #   keyboards.internalKeyboard = {
-  #     devices = [ "/dev/input/by-path/YOUR_KEYBOARD_EVENT_DEVICE" ];
-  #     config = ''
-  #       (defsrc caps)
-  #       (deflayer base esc)
-  #     '';
-  #   };
-  # };
+  services.kanata = {
+    enable = true;
+    keyboards.internalKeyboard = {
+      devices = [
+        "/dev/input/by-id/usb-SINO_WEALTH_RK_Bluetooth_Keyboar-event-kbd"
+      ];
+
+      config = ''
+        (defsrc
+          caps)
+
+        (deflayermap (base)
+          ;; Tap Caps Lock as Escape, hold it as Left Control.
+          caps (tap-hold 200 200 esc lctl))
+      '';
+    };
+  };
 }

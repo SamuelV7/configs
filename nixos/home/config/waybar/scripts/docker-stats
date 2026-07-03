@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if command -v docker >/dev/null 2>&1; then
+  runtime=docker
+elif command -v podman >/dev/null 2>&1; then
+  runtime=podman
+else
+  printf '{"text":"󰡨 N/A","tooltip":"No docker/podman runtime found"}\n'
+  exit 0
+fi
+
+running="$($runtime ps -q 2>/dev/null | wc -l | tr -d ' ')"
+total="$($runtime ps -aq 2>/dev/null | wc -l | tr -d ' ')"
+
+printf '{"text":"󰡨 %s/%s","tooltip":"%s containers running/total"}\n' "$running" "$total" "$runtime"
