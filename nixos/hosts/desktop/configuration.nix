@@ -16,26 +16,6 @@
 
   boot.initrd.luks.devices."luks-f62ad233-6d6f-407c-83b3-afc017748252".device = "/dev/disk/by-uuid/f62ad233-6d6f-407c-83b3-afc017748252";
   networking.hostName = "nixos"; # Define your hostname.
-  boot.kernelModules = [ "uinput" ];
-
-  # Enable uinput
-  hardware.uinput.enable = true;
-
-  # Set up udev rules for uinput
-  services.udev.extraRules = ''
-    KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
-  '';
-
-  # Ensure the uinput group exists
-  users.groups.uinput = { };
-
-  # Add the Kanata service user to necessary groups
-  systemd.services.kanata-internalKeyboard.serviceConfig = {
-    SupplementaryGroups = [
-      "input"
-      "uinput"
-    ];
-  };
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -134,18 +114,6 @@
     ];
   };
 
-  # Enable automatic login for the user.
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "sam";
-
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
-
-  # install hyprland
-  programs.hyprland.enable = true;
-  programs.waybar.enable = true;
-  
   services.flatpak.enable = true;
 
 
@@ -167,11 +135,9 @@
     wget
     ghostty
     hyprlock
-    neovim
     hyprpaper
     gh
     zellij
-    kanata
     git
     tea
     lutris

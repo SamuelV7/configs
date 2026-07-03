@@ -5,12 +5,16 @@
     # NixOS official package source
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     opencode.url = "github:anomalyco/opencode";
     # ytdlp-ui.url = "git+ssh://forgejo@git.bethel.home:2222/sam07/ytdlp_ui.git";
   };
 
   # outputs = { self, nixpkgs, zen-browser, ... }: let 
-  outputs = { self, nixpkgs, opencode, ... }@inputs: let 
+  outputs = { self, nixpkgs, home-manager, opencode, ... }@inputs: let 
     system = "x86_64-linux";
   in {
     nixosConfigurations = {
@@ -25,14 +29,17 @@
           ./modules/common.nix
           ./modules/steam.nix
           ./modules/sound.nix
+          ./modules/hyprland.nix
+          ./modules/kanata.nix
           ./modules/discord.nix
           ./modules/vscodium.nix
           ./modules/browsers.nix
-           ./modules/opencode.nix
-+          ./modules/pi.nix
-+          ./modules/bottles.nix
-+          # ./modules/opencode.nix
-+          ./modules/libation.nix
+          ./modules/opencode.nix
+          ./modules/pi.nix
+          ./modules/bottles.nix
+          # ./modules/opencode.nix
+          ./modules/libation.nix
+          ./modules/home-manager.nix
         ];
       };
       server =  nixpkgs.lib.nixosSystem {

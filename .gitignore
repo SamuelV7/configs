@@ -1,3 +1,6 @@
+# Session exports
+pi-session-*.html
+
 # Compiled Lua sources
 luac.out
 
