@@ -1049,7 +1049,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      -- Parsers are installed by Nix/Home Manager.
+      -- Parsers are installed by Nix/Home Manager into stdpath('data')/site.
       ensure_installed = {},
       auto_install = false,
       highlight = {

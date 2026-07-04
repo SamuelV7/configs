@@ -1,10 +1,24 @@
+local function get_args()
+  local args = vim.fn.input 'Arguments: '
+  return vim.split(args, ' ', { trimempty = true })
+end
+
+local function adapter_command(env_var, executable)
+  local env_path = vim.env[env_var]
+  if env_path and env_path ~= '' then
+    return env_path
+  end
+
+  local path = vim.fn.exepath(executable)
+  return path ~= '' and path or executable
+end
+
 return {
   'mfussenegger/nvim-dap',
   recommended = true,
   desc = 'Debugging support. Requires language specific adapters to be configured. (see lang extras)',
 
   dependencies = {
-    'jay-babu/mason-nvim-dap.nvim',
     'rcarriga/nvim-dap-ui',
     -- virtual text for the debugger
     {
@@ -35,6 +49,89 @@ return {
   },
 
   config = function()
+    local dap = require 'dap'
+
+    dap.adapters.codelldb = {
+      type = 'server',
+      port = '${port}',
+      executable = {
+        command = adapter_command('CODELLDB_PATH', 'codelldb'),
+        args = { '--port', '${port}' },
+      },
+    }
+
+    local codelldb_configurations = {
+      {
+        name = 'Debug executable',
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = {},
+      },
+    }
+
+    dap.configurations.rust = codelldb_configurations
+    dap.configurations.c = codelldb_configurations
+    dap.configurations.cpp = codelldb_configurations
+
+    dap.adapters.python = {
+      type = 'executable',
+      command = adapter_command('DEBUGPY_ADAPTER_PATH', 'debugpy-adapter'),
+    }
+
+    dap.configurations.python = {
+      {
+        type = 'python',
+        request = 'launch',
+        name = 'Launch file',
+        program = '${file}',
+        pythonPath = function()
+          local venv = vim.env.VIRTUAL_ENV
+          if venv and venv ~= '' then
+            return venv .. '/bin/python'
+          end
+
+          local python = vim.fn.exepath 'python3'
+          return python ~= '' and python or 'python3'
+        end,
+      },
+    }
+
+    dap.adapters.delve = {
+      type = 'server',
+      port = '${port}',
+      executable = {
+        command = adapter_command('DLV_PATH', 'dlv'),
+        args = { 'dap', '-l', '127.0.0.1:${port}' },
+      },
+    }
+
+    dap.configurations.go = {
+      {
+        type = 'delve',
+        name = 'Debug file',
+        request = 'launch',
+        program = '${file}',
+      },
+      {
+        type = 'delve',
+        name = 'Debug package',
+        request = 'launch',
+        program = '${fileDirname}',
+      },
+      {
+        type = 'delve',
+        name = 'Debug test',
+        request = 'launch',
+        mode = 'test',
+        program = '${fileDirname}',
+      },
+    }
+
     -- highlight the current stopped line
     vim.api.nvim_set_hl(0, 'DapStoppedLine', { default = true, link = 'Visual' })
   end,
