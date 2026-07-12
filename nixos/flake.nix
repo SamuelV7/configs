@@ -33,6 +33,7 @@
           ./modules/kanata.nix
           ./modules/discord.nix
           ./modules/vscodium.nix
+          ./modules/zed.nix
           ./modules/browsers.nix
           ./modules/opencode.nix
           ./modules/pi.nix

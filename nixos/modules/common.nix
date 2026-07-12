@@ -19,6 +19,7 @@
     gh
     python314
     ghostty
+    signal-desktop
     gcc
     distrobox
     pavucontrol
